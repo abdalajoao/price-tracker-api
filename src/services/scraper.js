@@ -35,13 +35,13 @@ async function scrapeBooks() {
     allResults = [...allResults, ...results];
   }
 
-  // corrigir URL das imagens
+  // correct image URLs
   allResults = allResults.map(book => ({
     ...book,
     image: `https://books.toscrape.com/${book.image.replace("../", "")}`
   }));
 
-  // ordenar por preço
+  // sort by price
   allResults.sort((a, b) => {
     return (
       parseFloat(a.price.replace("£", "")) -
