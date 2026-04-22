@@ -30,7 +30,7 @@ async function loadBooks(all = false) {
   const name = searchInput.value;
   const sort = sortSelect.value;
 
-  let url = `http://localhost:3000/api/product?sort=${sort}`;
+  let url = `https://price-tracker-api-e1rw.onrender.com/api/product?sort=${sort}`;
 
   if (name) {
     url += `&name=${name}`;

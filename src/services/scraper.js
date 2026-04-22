@@ -1,57 +1,29 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
+const chromium = require("@sparticuz/chromium");
 
 async function scrapeBooks() {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    args: chromium.args,
+    executablePath: await chromium.executablePath(),
+    headless: chromium.headless,
+  });
+
   const page = await browser.newPage();
 
-  let allResults = [];
+  await page.goto("https://books.toscrape.com/");
 
-  const TOTAL_PAGES = 50;
+  const results = await page.evaluate(() => {
+    const books = [...document.querySelectorAll(".product_pod")];
 
-  for (let i = 1; i <= TOTAL_PAGES; i++) {
-    const url =
-      i === 1
-        ? "https://books.toscrape.com/"
-        : `https://books.toscrape.com/catalogue/page-${i}.html`;
-
-    await page.goto(url, {
-      waitUntil: "domcontentloaded"
-    });
-
-    const results = await page.evaluate(() => {
-      const items = document.querySelectorAll(".product_pod");
-
-      return Array.from(items).map(item => {
-        const img = item.querySelector("img")?.getAttribute("src");
-
-        return {
-          title: item.querySelector("h3 a")?.getAttribute("title"),
-          price: item.querySelector(".price_color")?.innerText,
-          image: img
-        };
-      });
-    });
-
-    allResults = [...allResults, ...results];
-  }
-
-  // correct image URLs
-  allResults = allResults.map(book => ({
-    ...book,
-    image: `https://books.toscrape.com/${book.image.replace("../", "")}`
-  }));
-
-  // sort by price
-  allResults.sort((a, b) => {
-    return (
-      parseFloat(a.price.replace("£", "")) -
-      parseFloat(b.price.replace("£", ""))
-    );
+    return books.map(b => ({
+      title: b.querySelector("h3 a").title,
+      price: b.querySelector(".price_color").innerText
+    }));
   });
 
   await browser.close();
 
-  return allResults;
+  return results;
 }
 
 module.exports = { scrapeBooks };
