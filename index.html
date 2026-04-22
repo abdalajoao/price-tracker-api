@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Price Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>📚 Book Price Tracker</h1>
+
+    <div class="controls">
+        <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Search book..."
+        >
+
+        <select id="sortSelect">
+            <option value="asc">Cheapest first</option>
+            <option value="desc">Most expensive</option>
+        </select>
+
+        <button id="searchBtn">Search</button>
+        <button id="allBooksBtn">All Books</button>
+    </div>
+
+    <div id="results"></div>
+    <div id="pagination"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
