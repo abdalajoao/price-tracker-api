@@ -15,10 +15,17 @@ async function scrapeBooks() {
   const results = await page.evaluate(() => {
     const books = [...document.querySelectorAll(".product_pod")];
 
-    return books.map(b => ({
-      title: b.querySelector("h3 a").title,
-      price: b.querySelector(".price_color").innerText
-    }));
+    return books.map(b => {
+      const title = b.querySelector("h3 a").getAttribute("title");
+      const price = b.querySelector(".price_color").innerText;
+      const image = b.querySelector("img").getAttribute("src");
+
+      return {
+        title,
+        price,
+        image: new URL(image, "https://books.toscrape.com/").href
+      };
+    });
   });
 
   await browser.close();
