@@ -4,31 +4,65 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Book Price Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<div class="bg-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
 <div class="container">
-    <h1>📚 Book Price Tracker</h1>
+  <header class="site-header">
+    <div class="header-icon">📚</div>
+    <h1>Book Price Tracker</h1>
+    <p class="subtitle">Discover & compare book prices in real time</p>
+  </header>
 
-    <div class="controls">
-        <input 
-            type="text" 
-            id="searchInput" 
-            placeholder="Search book..."
-        >
-
-        <select id="sortSelect">
-            <option value="asc">Cheapest first</option>
-            <option value="desc">Most expensive</option>
-        </select>
-
-        <button id="searchBtn">Search</button>
-        <button id="allBooksBtn">All Books</button>
+  <div class="controls-wrapper">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search by title or author...">
     </div>
+    <div class="sort-buttons">
+      <button class="sort-btn active" id="cheapestBtn">
+        <span class="btn-icon">↑</span> Cheapest
+      </button>
+      <button class="sort-btn" id="expensiveBtn">
+        <span class="btn-icon">↓</span> Most Expensive
+      </button>
+    </div>
+  </div>
 
-    <div id="results"></div>
-    <div id="pagination"></div>
+  <div id="stats-bar" class="stats-bar hidden">
+    <div class="stat-item">
+      <span class="stat-label">Books found</span>
+      <span class="stat-value" id="statCount">0</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-label">Lowest price</span>
+      <span class="stat-value green" id="statMin">—</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-label">Highest price</span>
+      <span class="stat-value red" id="statMax">—</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-label">Average</span>
+      <span class="stat-value amber" id="statAvg">—</span>
+    </div>
+  </div>
+
+  <div id="status"></div>
+  <div id="results"></div>
+  <div id="pagination"></div>
 </div>
 
 <script src="app.js"></script>
