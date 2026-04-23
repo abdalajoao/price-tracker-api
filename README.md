@@ -116,7 +116,7 @@ https://price-tracker-api-e1rw.onrender.com/api/product
 ## 📦 Installation (Local Setup)
 
 ### 1. Clone repository
-git clone https://github.com/your-username/price-tracker-api.git
+git clone https://github.com/abdalajoao/price-tracker-api.git
 
 ### 2. Backend setup
 cd backend
